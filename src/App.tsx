@@ -1,8 +1,12 @@
+import { ThemeProvider } from "@emotion/react";
+import GlobalStyle from "./styles/GlobalStyle";
+import { theme } from "./styles/theme";
+
 function App() {
   return (
-    <>
-      <h1>RecipAI</h1>
-    </>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+    </ThemeProvider>
   );
 }
 
