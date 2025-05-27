@@ -4,9 +4,7 @@ import UploadImagePage from "@/pages/UploadImagePage";
 import FoodDetectionPage from "@/pages/FoodDetectionPage";
 import RecommendRecipePage from "@/pages/RecommendRecipePage";
 
-type Props = {};
-
-const Router = (props: Props) => {
+const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
