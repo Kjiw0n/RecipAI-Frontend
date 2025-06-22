@@ -1,9 +1,10 @@
-import { analyzeIngredients } from "@/apis/axios";
 import Icn from "@/assets";
+import backImg from "@/assets/back.png";
 import Btn from "@/components/Btn";
 import styled from "@emotion/styled";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { analyzeIngredients } from "@/apis/axios";
 
 const UploadImagePage = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -111,7 +112,7 @@ const UploadImagePageLayout = styled.div`
 
   height: 100vh;
 
-  background-image: url("src/assets/back.png");
+  background-image: url(${backImg});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
