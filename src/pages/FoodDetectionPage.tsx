@@ -7,9 +7,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { recommendMenus } from "@/apis/axios";
 
-type Props = {};
-
-const FoodDetectionPage = (props: Props) => {
+const FoodDetectionPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [detectedIngredients, setDetectedIngredients] = useState<string[]>([]);

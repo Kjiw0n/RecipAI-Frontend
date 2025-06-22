@@ -8,9 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { recommendMenus, getRecipe } from "@/apis/axios";
 import type { MenusResponse } from "@/apis/types";
 
-type Props = {};
-
-const RecommendRecipePage = (props: Props) => {
+const RecommendRecipePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [menus, setMenus] = useState<MenusResponse["responseMenus"]>({});

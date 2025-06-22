@@ -4,9 +4,7 @@ import { Line } from "@/components/Line";
 import styled from "@emotion/styled";
 import { useNavigate, useLocation } from "react-router-dom";
 
-type Props = {};
-
-const RecipeDetailPage = (props: Props) => {
+const RecipeDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { menuName, recipe, youtube, ingredients } = location.state || {};
