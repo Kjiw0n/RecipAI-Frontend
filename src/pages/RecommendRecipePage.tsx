@@ -111,7 +111,9 @@ const RecommendRecipePage = () => {
           />
         ))
       ) : (
-        <EmptyMessage>추천할 수 있는 메뉴가 없습니다.</EmptyMessage>
+        <EmptyMessage>
+          추천 가능한 메뉴가 없습니다. 재료를 다시 확인해 주세요.
+        </EmptyMessage>
       )}
 
       <DescWrapper>
