@@ -1,5 +1,6 @@
 import Icn from "@/assets";
 import styled from "@emotion/styled";
+import type { Theme } from "@emotion/react";
 
 type Props = {
   ItemName: string;
@@ -18,21 +19,14 @@ const RecipeItem = ({ ItemName, ItemInfo, checked = true, onClick }: Props) => {
           <Desc>{ItemInfo}</Desc>
         </TextContainer>
       </ItemContainer>
-      {checked && (
-        <Icn.IcnCheckBoxCheck
-          width={45}
-          height={45}
-          style={{ position: "absolute", top: "35px", right: "30px" }}
-        />
-      )}
 
-      {!checked && (
-        <Icn.IcnCheckBoxUnCheck
-          width={45}
-          height={45}
-          style={{ position: "absolute", top: "35px", right: "30px" }}
-        />
-      )}
+      <CheckboxWrapper>
+        {checked ? (
+          <Icn.IcnCheckBoxCheck width={45} height={45} />
+        ) : (
+          <Icn.IcnCheckBoxUnCheck width={45} height={45} />
+        )}
+      </CheckboxWrapper>
     </ListItemLayout>
   );
 };
@@ -45,6 +39,7 @@ const ListItemLayout = styled.div<{ clickable?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   padding: 30px;
 
   border-bottom: 1px solid ${({ theme }) => theme.color.Gray.gray4};
@@ -72,10 +67,10 @@ const ItemContainer = styled.div`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-
+  justify-content: center;
   height: 100%;
-
   gap: 10px;
+  padding-right: 16px;
 `;
 
 const Title = styled.p`
@@ -86,4 +81,12 @@ const Title = styled.p`
 const Desc = styled.p`
   font-size: 14px;
   color: ${({ theme }) => theme.color.Gray.gray7};
+  word-break: keep-all;
+`;
+
+const CheckboxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 `;
