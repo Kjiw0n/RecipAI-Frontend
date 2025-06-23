@@ -274,10 +274,6 @@ const AddIngredientBtn = styled.div`
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.color.Green}dd;
-  }
 `;
 
 const PreviewImage = styled.img`

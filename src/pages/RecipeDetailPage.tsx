@@ -70,7 +70,7 @@ const RecipeDetailPage = () => {
         <Toast message={toastMessage} onClose={() => setShowToast(false)} />
       )}
       <IcnBackArrowWrapper onClick={() => navigate("/recommend-recipe")}>
-        <Icn.IcnHome width={24} height={24} />
+        <Icn.IcnBackArrow width={24} height={24} />
       </IcnBackArrowWrapper>
 
       <IcnShareWrapper onClick={handleShare}>
@@ -234,14 +234,13 @@ const YoutubeContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 0 20px;
+  padding: 10px 20px;
 `;
 
 const YoutubeLink = styled.button`
   padding: 15px 20px;
-  background-color: #ff0000;
-  color: white;
-  border: none;
+  border: 1px solid #ff0000;
+  background-color: white;
   border-radius: 10px;
   font-size: 16px;
   font-weight: 600;

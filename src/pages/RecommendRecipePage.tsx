@@ -91,11 +91,11 @@ const RecommendRecipePage = () => {
 
   return (
     <RecommendRecipePageLayout>
-      <HomeButton onClick={() => navigate("/")}>홈으로</HomeButton>
+      <IcnBackArrowWrapper onClick={() => navigate("/food-detection")}>
+        <Icn.IcnBackArrow width={24} height={24} />
+      </IcnBackArrowWrapper>
 
-      <IcnShareWrapper>
-        <Icn.IcnShare width={24} height={24} />
-      </IcnShareWrapper>
+      <HomeButton onClick={() => navigate("/")}>홈으로</HomeButton>
 
       <Title>레시피 추천 결과</Title>
       <Line />
@@ -148,7 +148,7 @@ const RecommendRecipePageLayout = styled.div`
 const HomeButton = styled.button`
   position: absolute;
   top: 30px;
-  left: 25px;
+  right: 25px;
   background-color: transparent;
   border: 1px solid ${({ theme }) => theme.color.Green};
   color: ${({ theme }) => theme.color.Green};
@@ -222,4 +222,15 @@ const EmptyMessage = styled.div`
   text-align: center;
   color: ${({ theme }) => theme.color.Gray.gray6};
   font-size: 14px;
+`;
+
+const IcnBackArrowWrapper = styled.div`
+  position: absolute;
+  top: 30px;
+  left: 25px;
+  display: flex;
+  justify-content: flex-start;
+  width: fit-content;
+  cursor: pointer;
+  z-index: 10;
 `;
