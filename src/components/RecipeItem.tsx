@@ -1,6 +1,5 @@
 import Icn from "@/assets";
 import styled from "@emotion/styled";
-import type { Theme } from "@emotion/react";
 
 type Props = {
   ItemName: string;

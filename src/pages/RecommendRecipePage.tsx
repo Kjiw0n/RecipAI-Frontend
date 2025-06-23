@@ -166,16 +166,6 @@ const HomeButton = styled.button`
   }
 `;
 
-const IcnShareWrapper = styled.div`
-  position: absolute;
-  top: 30px;
-  right: 25px;
-  display: flex;
-  justify-content: flex-end;
-
-  width: fit-content;
-`;
-
 const Title = styled.p`
   width: 100%;
   padding: 30px 0;
