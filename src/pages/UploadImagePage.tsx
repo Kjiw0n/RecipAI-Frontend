@@ -1,10 +1,11 @@
+import { analyzeIngredients } from "@/apis/axios";
 import Icn from "@/assets";
 import backImg from "@/assets/back.png";
 import Btn from "@/components/Btn";
+import LoadingIndicator from "@/components/LoadingIndicator";
 import styled from "@emotion/styled";
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { analyzeIngredients } from "@/apis/axios";
 
 const UploadImagePage = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -62,6 +63,7 @@ const UploadImagePage = () => {
 
   return (
     <UploadImagePageLayout>
+      {isLoading && <LoadingIndicator message="이미지를 분석하고 있어요..." />}
       <TopContainer>
         <IcnBackArrowWrapper onClick={() => navigate(-1)}>
           <Icn.IcnBackArrow width={24} height={24} />
@@ -93,7 +95,7 @@ const UploadImagePage = () => {
       </TopContainer>
 
       <Btn
-        text={isLoading ? "분석 중..." : "Upload"}
+        text="Upload"
         onClick={handleUpload}
         disabled={!selectedImage || isLoading}
       />
