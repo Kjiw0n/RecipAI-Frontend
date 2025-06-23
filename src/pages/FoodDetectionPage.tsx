@@ -24,6 +24,20 @@ const FoodDetectionPage = () => {
     }
   }, [location.state]);
 
+  const handleUpdateDetected = (index: number, newItemName: string) => {
+    const updated = [...detectedIngredients];
+    updated[index] = newItemName;
+    setDetectedIngredients(updated);
+    setAllIngredients([...updated, ...manualIngredients]);
+  };
+
+  const handleUpdateManual = (index: number, newItemName: string) => {
+    const updated = [...manualIngredients];
+    updated[index] = newItemName;
+    setManualIngredients(updated);
+    setAllIngredients([...detectedIngredients, ...updated]);
+  };
+
   const handleDeleteDetected = (index: number) => {
     const updated = detectedIngredients.filter((_, i) => i !== index);
     setDetectedIngredients(updated);
@@ -104,6 +118,7 @@ const FoodDetectionPage = () => {
             ItemName={ingredient}
             ItemInfo="자동 인식된 재료"
             onDelete={() => handleDeleteDetected(index)}
+            onUpdate={(newItemName) => handleUpdateDetected(index, newItemName)}
           />
         ))
       ) : (
@@ -135,7 +150,7 @@ const FoodDetectionPage = () => {
         />
         <AddIngredientBtn onClick={handleAddIngredient}>
           추가
-          <Icn.IcnPlus width={20} height={20} />
+          <Icn.IcnPlus width={28} height={28} />
         </AddIngredientBtn>
       </AddIngredientContainer>
 
@@ -145,6 +160,7 @@ const FoodDetectionPage = () => {
           ItemName={ingredient}
           ItemInfo="직접 추가한 재료"
           onDelete={() => handleDeleteManual(index)}
+          onUpdate={(newItemName) => handleUpdateManual(index, newItemName)}
         />
       ))}
 
@@ -237,10 +253,11 @@ const AddIngredientBtn = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 10px 15px;
+  padding: 5px 15px;
   border-radius: 10px;
-  background-color: ${({ theme }) => theme.color.Green};
-  color: white;
+  border: 1px solid ${({ theme }) => theme.color.Green};
+  color: ${({ theme }) => theme.color.Green};
+  background-color: white;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;

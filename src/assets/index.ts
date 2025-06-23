@@ -3,6 +3,7 @@ import IcnBackArrow from "@/assets/back arrow.svg";
 import IcnCheckBoxCheck from "@/assets/icon_checkbox_check.svg";
 import IcnCheckBoxUnCheck from "@/assets/icon_checkbox_uncheck.svg";
 import IcnMinus from "@/assets/icon_minus.svg";
+import IcnModify from "@/assets/IcnModify.svg";
 import IcnPlus from "@/assets/icon_plus.svg";
 import SampleImg from "@/assets/sampleImg.svg";
 
@@ -11,6 +12,7 @@ const Icn = {
   IcnBackArrow,
   IcnCheckBoxCheck,
   IcnCheckBoxUnCheck,
+  IcnModify,
   IcnMinus,
   IcnPlus,
   SampleImg,
