@@ -17,8 +17,12 @@ const RecommendRecipePage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // 이전 페이지에서 전달받은 메뉴 목록이 있는지 확인
-    if (location.state?.menus) {
+    const savedData = localStorage.getItem("recommendedRecipes");
+    if (savedData) {
+      const { menus, ingredients } = JSON.parse(savedData);
+      setMenus(menus);
+      setIngredients(ingredients);
+    } else if (location.state?.menus) {
       setMenus(location.state.menus);
       setIngredients(location.state.ingredients || []);
     }
@@ -67,6 +71,12 @@ const RecommendRecipePage = () => {
       const response = await recommendMenus(ingredients);
       setMenus(response.responseMenus);
       setSelectedMenu(null);
+      // Save to localStorage
+      const recipeData = {
+        menus: response.responseMenus,
+        ingredients: ingredients,
+      };
+      localStorage.setItem("recommendedRecipes", JSON.stringify(recipeData));
     } catch (error: any) {
       console.error("API 호출 오류:", error);
       const message =
@@ -81,15 +91,13 @@ const RecommendRecipePage = () => {
 
   return (
     <RecommendRecipePageLayout>
-      <IcnBackArrowWrapper onClick={() => navigate(-1)}>
-        <Icn.IcnBackArrow width={24} height={24} />
-      </IcnBackArrowWrapper>
+      <HomeButton onClick={() => navigate("/")}>홈으로</HomeButton>
 
       <IcnShareWrapper>
         <Icn.IcnShare width={24} height={24} />
       </IcnShareWrapper>
 
-      <Title>재료 인식 결과</Title>
+      <Title>레시피 추천 결과</Title>
       <Line />
 
       {menuEntries.length > 0 ? (
@@ -137,14 +145,23 @@ const RecommendRecipePageLayout = styled.div`
   flex-direction: column;
 `;
 
-const IcnBackArrowWrapper = styled.div`
+const HomeButton = styled.button`
   position: absolute;
   top: 30px;
   left: 25px;
-  display: flex;
-  justify-content: flex-start;
+  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.color.Green};
+  color: ${({ theme }) => theme.color.Green};
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s;
 
-  width: 100%;
+  &:hover {
+    background-color: ${({ theme }) => theme.color.Green}20;
+  }
 `;
 
 const IcnShareWrapper = styled.div`
@@ -154,7 +171,7 @@ const IcnShareWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
 
-  width: 100%;
+  width: fit-content;
 `;
 
 const Title = styled.p`

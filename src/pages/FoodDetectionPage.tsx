@@ -17,10 +17,22 @@ const FoodDetectionPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // 이전 페이지에서 전달받은 재료 목록이 있는지 확인
-    if (location.state?.ingredients) {
+    const savedData = localStorage.getItem("ingredientData");
+    if (savedData) {
+      const { detected, manual } = JSON.parse(savedData);
+      setDetectedIngredients(detected);
+      setManualIngredients(manual);
+      setAllIngredients([...detected, ...manual]);
+    } else if (location.state?.ingredients) {
       setDetectedIngredients(location.state.ingredients);
       setAllIngredients(location.state.ingredients);
+      localStorage.setItem(
+        "ingredientData",
+        JSON.stringify({
+          detected: location.state.ingredients,
+          manual: [],
+        })
+      );
     }
   }, [location.state]);
 
@@ -72,11 +84,23 @@ const FoodDetectionPage = () => {
     try {
       const response = await recommendMenus(allIngredients);
       console.log("추천 메뉴:", response.responseMenus);
+
+      // Save final ingredients to local storage
+      localStorage.setItem(
+        "ingredientData",
+        JSON.stringify({
+          detected: detectedIngredients,
+          manual: manualIngredients,
+        })
+      );
+
+      const recipeData = {
+        menus: response.responseMenus,
+        ingredients: allIngredients,
+      };
+
       navigate("/recommend-recipe", {
-        state: {
-          menus: response.responseMenus,
-          ingredients: allIngredients,
-        },
+        state: recipeData,
       });
     } catch (error: any) {
       console.error("API 호출 오류:", error);
@@ -90,9 +114,7 @@ const FoodDetectionPage = () => {
 
   return (
     <FoodDetectionPageLayout>
-      <IcnBackArrowWrapper onClick={() => navigate(-1)}>
-        <Icn.IcnBackArrow width={24} height={24} />
-      </IcnBackArrowWrapper>
+      <HomeButton onClick={() => navigate("/")}>홈으로</HomeButton>
 
       <DetectionImgContainer>
         <ImgWrapper>
@@ -181,18 +203,8 @@ const FoodDetectionPageLayout = styled.div`
   flex-direction: column;
 `;
 
-const IcnBackArrowWrapper = styled.div`
-  position: absolute;
-  top: 30px;
-  left: 25px;
-  display: flex;
-  justify-content: flex-start;
-
-  width: 100%;
-`;
-
 const DetectionImgContainer = styled.div`
-  padding: 130px 0 60px 0;
+  padding: 80px 0 30px 0;
   border-radius: 0 0 25px 25px;
   background-color: ${({ theme }) => theme.color.Gray.gray2};
 `;
@@ -269,8 +281,27 @@ const AddIngredientBtn = styled.div`
 `;
 
 const PreviewImage = styled.img`
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 10px;
+`;
+
+const HomeButton = styled.button`
+  position: absolute;
+  top: 30px;
+  left: 25px;
+  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.color.Green};
+  color: ${({ theme }) => theme.color.Green};
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.color.Green}20;
+  }
 `;

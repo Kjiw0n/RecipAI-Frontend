@@ -35,15 +35,17 @@ const RecipeDetailPage = () => {
 
   return (
     <RecipeDetailPageLayout>
-      <IcnBackArrowWrapper onClick={() => navigate(-1)}>
-        <Icn.IcnBackArrow width={24} height={24} />
+      <IcnBackArrowWrapper onClick={() => navigate("/recommend-recipe")}>
+        <Icn.IcnHome width={24} height={24} />
       </IcnBackArrowWrapper>
 
       <IcnShareWrapper>
         <Icn.IcnShare width={24} height={24} />
       </IcnShareWrapper>
 
-      <Title>{menuName}</Title>
+      <TitleWrapper>
+        <Title>{menuName}</Title>
+      </TitleWrapper>
       <Line />
 
       {/* 재료 목록 */}
@@ -104,7 +106,7 @@ const IcnBackArrowWrapper = styled.div`
   left: 25px;
   display: flex;
   justify-content: flex-start;
-  width: 100%;
+  width: fit-content;
   cursor: pointer;
   z-index: 10;
 `;
@@ -115,9 +117,15 @@ const IcnShareWrapper = styled.div`
   right: 25px;
   display: flex;
   justify-content: flex-end;
-  width: 100%;
+  width: fit-content;
   cursor: pointer;
   z-index: 10;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
 `;
 
 const Title = styled.h1`
@@ -140,7 +148,7 @@ const IngredientsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  padding: 0 20px;
+  padding: 10px 20px;
 `;
 
 const IngredientTag = styled.span`
@@ -185,6 +193,7 @@ const StepText = styled.p`
   line-height: 1.6;
   font-size: 16px;
   color: ${({ theme }) => theme.color.Gray.gray7};
+  word-break: keep-all;
 `;
 
 const YoutubeContainer = styled.div`
