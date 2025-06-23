@@ -1,13 +1,22 @@
 import Icn from "@/assets";
 import Btn from "@/components/Btn";
 import { Line } from "@/components/Line";
+import Toast from "@/components/Toast";
 import styled from "@emotion/styled";
+import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const RecipeDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { menuName, recipe, youtube, ingredients } = location.state || {};
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const triggerToast = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+  };
 
   const handleBackToMenus = () => {
     navigate("/recommend-recipe", {
@@ -20,6 +29,28 @@ const RecipeDetailPage = () => {
 
   const handleOpenYoutube = (url: string) => {
     window.open(url, "_blank");
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: `RecipAI - ${menuName} 레시피`,
+      text: `${menuName} 레시피를 확인해보세요!`,
+      url: window.location.href,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        triggerToast("레시피가 성공적으로 공유되었습니다!");
+      } else {
+        // Fallback for browsers that don't support Web Share API
+        await navigator.clipboard.writeText(window.location.href);
+        triggerToast("레시피 링크가 클립보드에 복사되었습니다.");
+      }
+    } catch (error) {
+      console.error("Share failed:", error);
+      triggerToast("공유에 실패했습니다.");
+    }
   };
 
   if (!menuName || !recipe) {
@@ -35,11 +66,14 @@ const RecipeDetailPage = () => {
 
   return (
     <RecipeDetailPageLayout>
+      {showToast && (
+        <Toast message={toastMessage} onClose={() => setShowToast(false)} />
+      )}
       <IcnBackArrowWrapper onClick={() => navigate("/recommend-recipe")}>
         <Icn.IcnHome width={24} height={24} />
       </IcnBackArrowWrapper>
 
-      <IcnShareWrapper>
+      <IcnShareWrapper onClick={handleShare}>
         <Icn.IcnShare width={24} height={24} />
       </IcnShareWrapper>
 
