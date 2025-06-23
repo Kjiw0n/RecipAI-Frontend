@@ -65,15 +65,16 @@ const UploadImagePage = () => {
     <UploadImagePageLayout>
       {isLoading && <LoadingIndicator message="이미지를 분석하고 있어요..." />}
       <TopContainer>
-        <IcnBackArrowWrapper onClick={() => navigate(-1)}>
-          <Icn.IcnBackArrow width={24} height={24} />
-        </IcnBackArrowWrapper>
-
         <ImageContainer onClick={handleImageClick}>
           {previewUrl ? (
             <PreviewImage src={previewUrl} alt="선택된 이미지" />
           ) : (
-            <Icn.SampleImg width={200} height={200} />
+            <>
+              <Icn.SampleImg width={200} height={200} />
+              <ClickIconWrapper>
+                <Icn.IcnClick width={40} height={40} />
+              </ClickIconWrapper>
+            </>
           )}
         </ImageContainer>
 
@@ -89,7 +90,11 @@ const UploadImagePage = () => {
           <Title>Upload your Image</Title>
           <Desc>
             사용하고자 하는 음식 재료 사진을 업로드 해주세요. <br />
-            사진 용량은 최대 10MB입니다.
+            사진 용량은 최대 10MB입니다. <br />
+            <br />
+            정확한 인식을 위해 용기에 담겨있거나, <br />
+            원래의 모습을 알아보기 힘든 재료(ex. 심하게 변색된 재료)는 <br />
+            인식이 어려울 수 있습니다.
           </Desc>
         </TextContainer>
       </TopContainer>
@@ -131,16 +136,6 @@ const TopContainer = styled.div`
   gap: 50px;
 `;
 
-const IcnBackArrowWrapper = styled.div`
-  position: absolute;
-  top: 30px;
-  left: 25px;
-  display: flex;
-  justify-content: flex-start;
-
-  width: 100%;
-`;
-
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -161,6 +156,7 @@ const Desc = styled.p`
 `;
 
 const ImageContainer = styled.div`
+  position: relative;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -180,4 +176,27 @@ const PreviewImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+`;
+
+const ClickIconWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  animation: bounce 1.5s infinite;
+
+  @keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-15px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
 `;
