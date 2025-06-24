@@ -162,7 +162,7 @@ const HomeButton = styled.button`
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: ${({ theme }) => theme.color.Green}20;
+    background-color: ${({ theme }) => theme.color.Green};
   }
 `;
 
